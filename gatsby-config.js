@@ -1,5 +1,4 @@
 let contentfulConfig
-
 try {
   contentfulConfig = require('./.contentful')
 } catch (_) {
