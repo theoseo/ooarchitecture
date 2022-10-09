@@ -8,7 +8,9 @@ export default ({data}) => {
       <div className="menu" style={{display:'block'}}>
       </div>
       <div className="main-title">
-        <Link to="/project/">mjlee-draws</Link>
+        <Link to="/project/">
+         <img src="/img/logo.png" width="108" alt="logo" />
+        </Link>
       </div>     
       </div>
    )

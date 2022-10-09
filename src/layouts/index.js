@@ -59,7 +59,9 @@ class Template extends React.Component {
         {children(this.props)}
         {navigation}
         <div className="main-title">
-          <Link to="/project/">mjlee-draws</Link>
+          <Link to="/project/">
+          <img src="/img/logo.png" width="108" alt="logo" />
+          </Link>
         </div>         
   
       </div>
