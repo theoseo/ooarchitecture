@@ -18,8 +18,8 @@ try {
 
 module.exports = {
    siteMetadata: {
-      title: 'mjlee',
-      siteUrl: 'https://mjlee.netlify.com'
+      title: '오오건축 - ooarchitecture',
+      siteUrl: 'https://ooarchitecture.co'
    },   
   pathPrefix: '/mjlee-contentful',
   plugins: [
