@@ -133,6 +133,11 @@ a:hover {
 	list-style: none;
 }
 
+.menu ul li {
+   overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;   
+}
 .menu .other-menu {
 	margin-top:20px;
 }
