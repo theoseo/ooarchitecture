@@ -1,95 +1,35 @@
-# Migration from Wordpress to Gatsby-Contentful using gatsby-contentful-starter
+# ooarchitecture (formerly mjlee-draws)
 
-[www.mjlee-draws.com](https://mjlee-draws.com) site orginally created using Wordpress and its [theme](https://github.com/suhongs/mjlee-draws) which I created. Site owner and I decided to move from Wordpress to static website. Gatsby and Contentful were the one of the best choices.
+같은 사이트 owner의 두 시기 활동 — 일러스트(2018-2019) → 건축(2022~) 콘텐츠 전환. Gatsby + Contentful 기반 정적 사이트.
 
-- [ ] To do : why Gatsbyjs?
+## 라이브
 
-- [ ] To do : why Contentful?
+- **현재**: https://ooarchitecture.co (건축 프로젝트 — Mies van der Rohe 참조 시리즈, "what-mies-told-me", "chair-6-0", "oo-stool" 등)
+- **옛 도메인**: https://mjlee-draws.com (같은 사이트로 redirect)
 
-### Create Gatsbyjs site using Contentful
+## 시기 흐름
 
-I used [gatsby-contentful-starter](https://github.com/contentful-userland/gatsby-contentful-starter) to set up [Contentful](http://contentful.com) environment. It automatically set contentful API environments. Basically, I refered [GatsbyJS and Contentful in five minutes](https://www.contentful.com/r/knowledgebase/gatsbyjs-and-contentful-in-five-minutes/). After I set up Contentful environment, I migrated my Wordpress theme of mjlee-draws.com to Gatsbyjs. 
+| 시기 | 콘텐츠 | 코드 변화 |
+|---|---|---|
+| 2018-07 ~ 2019-05 | **mjlee-draws** 일러스트 사이트 | Wordpress → Gatsby-Contentful 마이그레이션 (gatsby-contentful-starter 기반). theme 출처 [suhongs/mjlee-draws](https://github.com/suhongs/mjlee-draws) (옛 Wordpress 테마, 본인 작성) |
+| 2021-09 | "update" | 의존성/설정 update |
+| 2022-10 | **오오건축(ooarchitecture)으로 콘텐츠 전환** | 타이틀 "오오건축 - ooarchitecture", `gatsby-config.js` siteMetadata 변경, 메뉴 text-overflow elipsis, logo 신규 (`static/img/logo.{jpg,png}`) |
 
-- [ ] To do : How I create my own Gatsby site based on my Wordpress theme.
+## 배포
 
-### Site Deploy to Netlify
+- **Netlify** 연결 + Contentful webhook (콘텐츠 변경 시 자동 rebuild)
+- Build env vars: `CONTENTFUL_SPACE_ID`, `CONTENTFUL_DELIVERY_TOKEN`
 
-There are two options to deploy my code. The first is to use [Netlifyctl](https://github.com/netlify/netlifyctl) which is based on command line. The second option is to add my git repository to Netlify. When you use this option, you have to add Contentful Space Id and Access Token as CONTENTFUL_SPACE_ID and CONTENTFUL_DELIVERY_TOKEN from your .contentful.json file to Netlify's build environment variables.
+## 정리 사정 (2026-05-17)
 
-### Rebuild a site when a content is added in Contentful
+원래 같은 코드가 Bitbucket `osslab/mjlee` (라이브 source) + GitHub `theoseo/mjlee` (옛 publish 시점에서 멈춤) 두 곳에 있던 것을 GitHub로 합쳐 통합. 4 commits (2021-09 ~ 2022-10) GitHub master에 fast-forward sync. 이후 Netlify source를 GitHub로 switch하고 Bitbucket archive 예정.
 
-Contentful provides a method to rebuild a static website using webhook in [this post](https://www.contentful.com/developers/docs/tutorials/general/automate-site-builds-with-webhooks/). According to the post, Netlify users are able to create webhook url and add the url to Contentful's space webhook setting. This setting automatically updates a Gatsby site when content is updated or published on Contentful.
+## 개발
 
-
-
-### Gatsby Contentful Starter readme
-
-This is originally from [gatsby-contentful-starter readme file](https://github.com/contentful-userland/gatsby-contentful-starter/)
-
-Gatsby [Contentful](https://www.contentful.com) starter for creating a blog
-
-![The index page of the starter blog](https://rawgit.com/contentful-userland/gatsby-contentful-starter/master/screenshot.jpg "The index page of the starter blog")
-
-Static sites are scalable, secure and have very little required maintenance. They come with a drawback though. Not everybody feels good editing files, building a project and uploading it somewhere. This is where Contentful comes into play.
-
-With Contentful and Gatsby you can connect your favorite static site generator with an API that provides an easy to use interface for people writing content and automate the publishing using services like [Travis CI](https://travis-ci.org/) or [Netlify](https://www.netlify.com/).
-
-## Contribution
-
-This project is part of [contentful-userland](https://github.com/contentful-userland) which means that we’re always open to contributions and pull requests. You can learn more about how contentful userland is organized by visiting [our about repository](https://github.com/contentful-userland/about).
-
-## Requirements
-
-To use this project you have to have a Contentful account. If you don't have one yet you can register at [www.contentful.com/sign-up](https://www.contentful.com/sign-up/).
-
-## Getting started
-
-### Get the source code and install dependencies.
-
-```
-$ git clone git@github.com:contentful-userland/gatsby-contentful-starter.git
-$ npm i
+```bash
+npm install
+npm run dev     # Contentful Preview API로 로컬 미리보기
+npm run build   # production build to ./public
 ```
 
-Or use the [Gatsby CLI](https://www.npmjs.com/package/gatsby-cli).
-
-```
-$ gatsby new contentful-starter https://github.com/contentful-userland/gatsby-contentful-starter
-```
-
-### Set up of the needed content model and create a configuration file
-
-This project comes with a Contentful setup command `npm run setup`.
-
-![Command line dialog of the npm run setup command](https://rawgit.com/contentful-userland/gatsby-contentful-starter/master/setup.jpg "Command line dialog of the npm run setup command")
-
-This command will ask you for a space ID, and access tokens for the Contentful Management, Preview and Delivery API and then import the needed content model into the space you define and write a config file (`./contentful.json`).
-
-`npm run setup` automates that for you but if you want to do it yourself rename `.contentful.json.sample` to `.contentful.json` and add your configuration in this file.
-
-## Crucial Commands
-
-This project comes with a few handy commands for linting and code fixing. The most important ones are the ones to develop and ship code. You can find the most important commands below.
-
-### `npm run dev`
-
-Run in the project locally using the [Contentful Preview API](https://www.contentful.com/developers/docs/references/content-preview-api/). This can perfect to preview changes before they go into production.
-
-### `npm run build`
-
-Run a production build into `./public`. The result is ready to be put on any static hosting you prefer.
-
-### `npm run deploy`
-
-Run a production build into `./public` and publish the site to GitHub pages.
-
-## Roadmap
-
-- [ ] [make the starter completely responsive](https://github.com/contentful-userland/gatsby-contentful-starter/issues/2)
-- [ ] [include tags](https://github.com/contentful-userland/gatsby-contentful-starter/issues/3)
-- [ ] [support traced placeholders](https://github.com/contentful-userland/gatsby-contentful-starter/issues/4)
-- [ ] [add i18n](https://github.com/contentful-userland/gatsby-contentful-starter/issues/6)
-
-## Other resources
-
-- Tutorial video series ["Building a blazing fast website with GatsbyJS and Contentful"](https://www.youtube.com/watch?v=Ek4o40w1tH4&list=PL8KiuH6vpACV-F7jXribe4YveGBhBeG9A) by @Khaledgarbaya
+`.contentful.json` 설정 필요 — `.contentful.json.sample` 참조.
